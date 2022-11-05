@@ -1,25 +1,24 @@
 <template>
-  <div class="post">
-    <div><strong>Название: </strong> {{ post.title }}</div>
-    <div><strong>Описание: </strong> {{ post.body }}</div>
+  <div class="post-list">
+    <h3>Список рользователей</h3>
+    <post-item
+      v-for="post in posts"
+      :key="post.id"
+      :post="post"
+      @delete-post="this.$emit('delete-post', post)"
+    />
   </div>
 </template>
 
 <script>
+import PostItem from '@/components/PostItem.vue';
 export default {
+  components: { PostItem },
   props: {
-    post: {
-      type: Object,
+    posts: {
+      type: Array,
       required: true,
     },
   },
 };
 </script>
-
-<style lang="css" scoped>
-.post {
-  padding: 15px;
-  border: 2px solid teal;
-  margin-top: 15px;
-}
-</style>

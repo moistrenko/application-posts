@@ -4,30 +4,51 @@
     @submit.prevent
   >
     <h4>Создание поста</h4>
-    <input
-      v-model="title"
-      class="input"
-      type="text"
+    <base-input
+      v-model="post.title"
       placeholder="Название"
     />
-    <input
-      v-model="body"
-      class="input"
-      type="text"
+    <base-input
+      v-model="post.body"
       placeholder="Описание"
     />
-    <button
-      class="btn"
+    <base-button
       type="submit"
       @click="createPost"
     >
       Создать
-    </button>
+    </base-button>
   </form>
 </template>
 
 <script>
-export default {};
+export default {
+  data() {
+    return {
+      post: {
+        title: '',
+        body: '',
+      },
+    };
+  },
+
+  emits: {
+    'create-post': null,
+  },
+
+  methods: {
+    createPost() {
+      this.post.id = Date.now();
+
+      this.$emit('create-post', this.post);
+
+      this.post = {
+        title: '',
+        body: '',
+      };
+    },
+  },
+};
 </script>
 
 <style lang="css" scoped>
@@ -36,20 +57,8 @@ export default {};
   flex-direction: column;
 }
 
-.input {
-  width: 100%;
-  border: 1px solid teal;
-  padding: 10px 15px;
-  margin-top: 15px;
-}
-
 .btn {
   margin-top: 15px;
   align-self: flex-end;
-  padding: 10px 15px;
-  background: none;
-  color: teal;
-  border: 1px solid teal;
-  cursor: pointer;
 }
 </style>

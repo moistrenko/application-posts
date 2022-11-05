@@ -1,18 +1,17 @@
 <template>
   <div class="app">
-    <post-form />
+    <post-form @create-post="createPost" />
 
     <post-list
-      v-for="post in posts"
-      :key="post.id"
-      :post="post"
+      :posts="posts"
+      @delete-post="deletePost"
     />
   </div>
 </template>
 
 <script>
-import PostForm from './components/PostForm.vue';
-import PostList from './components/PostList.vue';
+import PostForm from '@/components/PostForm.vue';
+import PostList from '@/components/PostList.vue';
 
 export default {
   data() {
@@ -22,22 +21,22 @@ export default {
       posts: [
         {
           id: 0,
-          title: 'zxcczcxc',
+          title: '123',
           body: 'asd123e dadfvfvsdfcaxf vsxcvsd fdsaf',
         },
         {
           id: 1,
-          title: 'zxcczcxc',
+          title: '456',
           body: 'asd123e dadfvfvsdfcaxf vsxcvsd fdsaf',
         },
         {
           id: 2,
-          title: 'zxcczcxc',
+          title: '7788',
           body: 'asd123e dadfvfvsdfcaxf vsxcvsd fdsaf',
         },
         {
           id: 3,
-          title: 'zxcczcxc',
+          title: '09000',
           body: 'asd123e dadfvfvsdfcaxf vsxcvsd fdsaf',
         },
       ],
@@ -50,23 +49,18 @@ export default {
   },
 
   methods: {
-    createPost() {
-      const newPost = {
-        id: Date.now(),
-        title: this.title,
-        body: this.body,
-      };
-
+    createPost(newPost) {
       this.posts.push(newPost);
+    },
 
-      this.title = '';
-      this.body = '';
+    deletePost(post) {
+      this.posts = this.posts.filter((elem) => elem.id !== post.id);
     },
   },
 };
 </script>
 
-<style scoped>
+<style>
 * {
   margin: 0;
   padding: 0;
