@@ -17,6 +17,21 @@
       :options="sortOptions"
     />
 
+    <div
+      v-if="totalPage > 1"
+      class="page-wrapper"
+    >
+      <div
+        v-for="page in totalPage"
+        :key="`page-${page}`"
+        class="page"
+        :class="{ 'active-page': page === currentPage }"
+        @click="changePage(page)"
+      >
+        {{ page }}
+      </div>
+    </div>
+
     <post-list
       v-if="!isPostLoading"
       :posts="sorteredAndSearchPosts"
@@ -43,6 +58,9 @@ export default {
       posts: [],
       selectedSort: '',
       searchQuery: '',
+      currentPage: 1,
+      limit: 10,
+      totalPage: 0,
       sortOptions: [
         { value: 'title', name: 'По названию' },
         { value: 'body', name: 'По содержимому' },
@@ -76,6 +94,12 @@ export default {
     },
   },
 
+  watch: {
+    currentPage() {
+      this.getPosts();
+    },
+  },
+
   methods: {
     createPost(newPost) {
       this.posts.push(newPost);
@@ -91,8 +115,16 @@ export default {
         this.isPostLoading = true;
 
         await axios
-          .get('https://jsonplaceholder.typicode.com/posts?_limit=10')
-          .then((e) => e.data)
+          .get('https://jsonplaceholder.typicode.com/posts', {
+            params: {
+              _page: this.currentPage,
+              _limit: this.limit,
+            },
+          })
+          .then((e) => {
+            this.totalPage = Math.ceil(e.headers['x-total-count'] / this.limit);
+            return e.data;
+          })
           .then((data) => (this.posts = data))
           .catch((error) => {
             console.error(error);
@@ -102,6 +134,10 @@ export default {
       } finally {
         this.isPostLoading = false;
       }
+    },
+
+    changePage(page) {
+      this.currentPage = page;
     },
   },
 };
@@ -126,5 +162,22 @@ export default {
 .select {
   margin-top: 15px;
   margin-bottom: 15px;
+}
+
+.page-wrapper {
+  display: flex;
+  justify-content: center;
+}
+
+.page {
+  padding: 10px;
+  border: 1px solid teal;
+  border-radius: 5px;
+  margin: 5px;
+  cursor: pointer;
+}
+
+.active-page {
+  background: teal;
 }
 </style>
