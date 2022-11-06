@@ -7,6 +7,11 @@
       >Добавить пост</base-button
     >
 
+    <base-input
+      v-model="searchQuery"
+      placeholder="Поиск по заголовку:"
+    />
+
     <base-select
       v-model="selectedSort"
       :options="sortOptions"
@@ -14,7 +19,7 @@
 
     <post-list
       v-if="!isPostLoading"
-      :posts="sorderedPost"
+      :posts="sorteredAndSearchPosts"
       @delete-post="deletePost"
     />
     <div v-else>Идет загрузка...</div>
@@ -37,6 +42,7 @@ export default {
       isPostLoading: false,
       posts: [],
       selectedSort: '',
+      searchQuery: '',
       sortOptions: [
         { value: 'title', name: 'По названию' },
         { value: 'body', name: 'По содержимому' },
@@ -62,17 +68,13 @@ export default {
           .localeCompare(secondPost[this.selectedSort]);
       });
     },
-  },
 
-  // watch: {
-  //   selectedSort(newValue) {
-  //     this.posts.sort((firstPost, secondPost) => {
-  //       return firstPost[newValue]
-  //         ?.toString()
-  //         .localeCompare(secondPost[newValue]);
-  //     });
-  //   },
-  // },
+    sorteredAndSearchPosts() {
+      return this.sorderedPost.filter((post) =>
+        post.title.toLowerCase().includes(this.searchQuery.toLowerCase()),
+      );
+    },
+  },
 
   methods: {
     createPost(newPost) {
