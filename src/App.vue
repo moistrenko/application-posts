@@ -6,16 +6,22 @@
       @click="showModal = !showModal"
       >Добавить пост</base-button
     >
-    <base-modal v-model="showModal">
-      <post-form @create-post="createPost" />
-    </base-modal>
+
+    <base-select
+      v-model="selectedSort"
+      :options="sortOptions"
+    />
 
     <post-list
       v-if="!isPostLoading"
-      :posts="posts"
+      :posts="sorderedPost"
       @delete-post="deletePost"
     />
     <div v-else>Идет загрузка...</div>
+
+    <base-modal v-model="showModal">
+      <post-form @create-post="createPost" />
+    </base-modal>
   </div>
 </template>
 
@@ -30,6 +36,12 @@ export default {
       showModal: false,
       isPostLoading: false,
       posts: [],
+      selectedSort: '',
+      sortOptions: [
+        { value: 'title', name: 'По названию' },
+        { value: 'body', name: 'По содержимому' },
+        { value: 'id', name: 'По id' },
+      ],
     };
   },
 
@@ -41,6 +53,26 @@ export default {
   mounted() {
     this.getPosts();
   },
+
+  computed: {
+    sorderedPost() {
+      return [...this.posts].sort((firstPost, secondPost) => {
+        return firstPost[this.selectedSort]
+          ?.toString()
+          .localeCompare(secondPost[this.selectedSort]);
+      });
+    },
+  },
+
+  // watch: {
+  //   selectedSort(newValue) {
+  //     this.posts.sort((firstPost, secondPost) => {
+  //       return firstPost[newValue]
+  //         ?.toString()
+  //         .localeCompare(secondPost[newValue]);
+  //     });
+  //   },
+  // },
 
   methods: {
     createPost(newPost) {
@@ -87,5 +119,10 @@ export default {
 .btn-added {
   margin-top: 20px;
   margin-bottom: 20px;
+}
+
+.select {
+  margin-top: 15px;
+  margin-bottom: 15px;
 }
 </style>
