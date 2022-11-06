@@ -11,50 +11,35 @@
     </base-modal>
 
     <post-list
+      v-if="!isPostLoading"
       :posts="posts"
       @delete-post="deletePost"
     />
+    <div v-else>Идет загрузка...</div>
   </div>
 </template>
 
 <script>
+import axios from 'axios';
 import PostForm from '@/components/PostForm.vue';
 import PostList from '@/components/PostList.vue';
-import BaseButton from './components/UI/BaseButton.vue';
 
 export default {
   data() {
     return {
       showModal: false,
-      posts: [
-        {
-          id: 0,
-          title: '123',
-          body: 'asd123e dadfvfvsdfcaxf vsxcvsd fdsaf',
-        },
-        {
-          id: 1,
-          title: '456',
-          body: 'asd123e dadfvfvsdfcaxf vsxcvsd fdsaf',
-        },
-        {
-          id: 2,
-          title: '7788',
-          body: 'asd123e dadfvfvsdfcaxf vsxcvsd fdsaf',
-        },
-        {
-          id: 3,
-          title: '09000',
-          body: 'asd123e dadfvfvsdfcaxf vsxcvsd fdsaf',
-        },
-      ],
+      isPostLoading: false,
+      posts: [],
     };
   },
 
   components: {
     PostForm,
     PostList,
-    BaseButton,
+  },
+
+  mounted() {
+    this.getPosts();
   },
 
   methods: {
@@ -65,6 +50,24 @@ export default {
 
     deletePost(post) {
       this.posts = this.posts.filter((elem) => elem.id !== post.id);
+    },
+
+    async getPosts() {
+      try {
+        this.isPostLoading = true;
+
+        await axios
+          .get('https://jsonplaceholder.typicode.com/posts?_limit=10')
+          .then((e) => e.data)
+          .then((data) => (this.posts = data))
+          .catch((error) => {
+            console.error(error);
+          });
+      } catch (error) {
+        console.log(error);
+      } finally {
+        this.isPostLoading = false;
+      }
     },
   },
 };

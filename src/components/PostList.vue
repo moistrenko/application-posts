@@ -3,7 +3,7 @@
     v-if="posts.length"
     class="post-list"
   >
-    <h3>Список постов</h3>
+    <h3>Список постов:</h3>
     <post-item
       v-for="post in posts"
       :key="post.id"
