@@ -1,11 +1,15 @@
 <template>
-  <div>
+  <main>
+    <base-header />
     <router-view></router-view>
-  </div>
+  </main>
 </template>
 
 <script>
-export default {};
+import BaseHeader from '@/components/BaseHeader.vue';
+export default {
+  components: { BaseHeader },
+};
 </script>
 
 <style lang="scss" scoped></style>

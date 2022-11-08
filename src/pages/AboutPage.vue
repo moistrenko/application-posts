@@ -1,7 +1,5 @@
 <template>
-  <div>
-    <h1>Добро пожаловать!</h1>
-  </div>
+  <div>Еще одна страница</div>
 </template>
 
 <script>
