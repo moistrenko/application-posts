@@ -10,6 +10,14 @@
           Посты
         </router-link>
       </li>
+      <li>
+        <router-link
+          active-class="active"
+          to="/postsV2"
+        >
+          Посты-v2
+        </router-link>
+      </li>
       <!-- <li>
         <base-button @click="$router.push('/about')">О сайте</base-button>
       </li> -->
