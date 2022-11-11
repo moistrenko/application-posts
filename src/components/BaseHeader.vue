@@ -36,7 +36,7 @@ export default {
 .header {
   display: flex;
   justify-content: space-between;
-  padding: 30px;
+  padding: 10px 30px;
   background: lightblue;
 }
 

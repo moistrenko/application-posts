@@ -4,7 +4,10 @@
       <div><strong>Название: </strong> {{ post.title }}</div>
       <div><strong>Описание: </strong> {{ post.body }}</div>
     </div>
-    <div>
+    <div class="actions-group">
+      <base-button @click="$router.push(`/post/${post.id}`)">
+        Подробнее
+      </base-button>
       <base-button @click="this.$emit('delete-post', post.id)" />
     </div>
   </div>
@@ -33,5 +36,13 @@ export default {
   display: flex;
   align-items: center;
   justify-content: space-between;
+}
+
+.actions-group {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 10px;
 }
 </style>
