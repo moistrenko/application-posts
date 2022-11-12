@@ -5,6 +5,7 @@
   >
     <h4>Создание поста</h4>
     <base-input
+      v-focus
       v-model="post.title"
       placeholder="Название"
     />

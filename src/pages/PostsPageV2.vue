@@ -25,7 +25,7 @@
     <div v-else>Идет загрузка...</div>
 
     <div
-      ref="observer"
+      v-intersection="loadMorePosts"
       class="observer"
     ></div>
 
@@ -67,20 +67,20 @@ export default {
   mounted() {
     this.getPosts();
 
-    const options = {
-      rootMargin: '0px',
-      threshold: 1.0,
-    };
+    // const options = {
+    //   rootMargin: '0px',
+    //   threshold: 1.0,
+    // };
 
-    const callback = (entries) => {
-      if (entries[0].isIntersecting && this.currentPage < this.totalPage) {
-        this.loadMorePosts();
-      }
-    };
+    // const callback = (entries) => {
+    //   if (entries[0].isIntersecting && this.currentPage < this.totalPage) {
+    //     this.loadMorePosts();
+    //   }
+    // };
 
-    const observer = new IntersectionObserver(callback, options);
+    // const observer = new IntersectionObserver(callback, options);
 
-    observer.observe(this.$refs.observer);
+    // observer.observe(this.$refs.observer);
   },
 
   computed: {
