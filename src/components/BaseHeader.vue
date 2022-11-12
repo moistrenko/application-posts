@@ -29,6 +29,14 @@
           О сайте
         </router-link>
       </li>
+      <li>
+        <router-link
+          active-class="active"
+          to="/store"
+        >
+          Store
+        </router-link>
+      </li>
     </ul>
   </header>
 </template>

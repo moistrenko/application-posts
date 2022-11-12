@@ -8,6 +8,7 @@
     >
 
     <base-input
+      v-focus
       v-model="searchQuery"
       placeholder="Поиск по заголовку:"
     />
