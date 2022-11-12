@@ -31,11 +31,19 @@ export default {
 <style lang="css" scoped>
 .post {
   padding: 15px;
-  border: 2px solid teal;
   margin-top: 15px;
+  border-radius: 15px;
   display: flex;
   align-items: center;
   justify-content: space-between;
+  background-image: radial-gradient(
+    circle,
+    #bfdfce,
+    #c0e1bd,
+    #cce0a7,
+    #e3db91,
+    #ffd381
+  );
 }
 
 .actions-group {

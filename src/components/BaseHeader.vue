@@ -1,9 +1,14 @@
 <template>
   <header class="header">
-    <base-button @click="$router.push('/')">Главная</base-button>
+    <base-button
+      class="link"
+      @click="$router.push('/')"
+      >Главная</base-button
+    >
     <ul class="nav">
       <li>
         <router-link
+          class="link"
           active-class="active"
           to="/posts"
         >
@@ -12,6 +17,7 @@
       </li>
       <li>
         <router-link
+          class="link"
           active-class="active"
           to="/postsV2"
         >
@@ -23,6 +29,7 @@
       </li> -->
       <li>
         <router-link
+          class="link"
           active-class="active"
           to="/about"
         >
@@ -31,6 +38,7 @@
       </li>
       <li>
         <router-link
+          class="link"
           active-class="active"
           to="/store"
         >
@@ -52,8 +60,10 @@ export default {
 .header {
   display: flex;
   justify-content: space-between;
+  position: fixed;
+  width: 100%;
   padding: 10px 30px;
-  background: lightblue;
+  background: #7700c9;
 }
 
 .nav {
@@ -65,17 +75,25 @@ export default {
   background: white;
 }
 
-a {
+.link {
   display: block;
   text-decoration: none;
   background: white;
-  color: teal;
+  color: black;
+  font-size: 12px;
+  font-weight: 400;
   padding: 10px 20px;
+  border-radius: 4px;
+  transition: all 0.3s;
 }
 
-a.active {
-  background-color: teal;
-  color: white;
+.link:hover {
+  transform: scale(0.95);
+  opacity: 0.7;
+}
+
+.link.active {
+  background-color: lightskyblue;
 }
 
 li:not(:first-child) {
