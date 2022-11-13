@@ -85,7 +85,7 @@ export default {
   },
 
   computed: {
-    sorderedPost() {
+    sorteredPost() {
       return [...this.posts].sort((firstPost, secondPost) => {
         return firstPost[this.selectedSort]
           ?.toString()
@@ -94,7 +94,7 @@ export default {
     },
 
     sorteredAndSearchPosts() {
-      return this.sorderedPost.filter((post) =>
+      return this.sorteredPost.filter((post) =>
         post.title.toLowerCase().includes(this.searchQuery.toLowerCase()),
       );
     },

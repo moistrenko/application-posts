@@ -47,7 +47,8 @@
 </template>
 
 <script>
-import axios from 'axios';
+// import axios from 'axios';
+import getPosts from '@/services/getPosts';
 import PostForm from '@/components/PostForm.vue';
 import PostList from '@/components/PostList.vue';
 
@@ -76,11 +77,16 @@ export default {
   },
 
   mounted() {
-    this.getPosts();
+    this.isPostLoading = true;
+    getPosts(this.currentPage, this.limit).then((data) => {
+      this.totalPage = data.totalPage;
+      this.posts = data.data;
+      this.isPostLoading = false;
+    });
   },
 
   computed: {
-    sorderedPost() {
+    sorteredPost() {
       return [...this.posts].sort((firstPost, secondPost) => {
         return firstPost[this.selectedSort]
           ?.toString()
@@ -89,7 +95,7 @@ export default {
     },
 
     sorteredAndSearchPosts() {
-      return this.sorderedPost.filter((post) =>
+      return this.sorteredPost.filter((post) =>
         post.title.toLowerCase().includes(this.searchQuery.toLowerCase()),
       );
     },
@@ -109,32 +115,6 @@ export default {
 
     deletePost(post) {
       this.posts = this.posts.filter((elem) => elem.id !== post.id);
-    },
-
-    async getPosts() {
-      try {
-        this.isPostLoading = true;
-
-        await axios
-          .get('https://jsonplaceholder.typicode.com/posts', {
-            params: {
-              _page: this.currentPage,
-              _limit: this.limit,
-            },
-          })
-          .then((e) => {
-            this.totalPage = Math.ceil(e.headers['x-total-count'] / this.limit);
-            return e.data;
-          })
-          .then((data) => (this.posts = data))
-          .catch((error) => {
-            console.error(error);
-          });
-      } catch (error) {
-        console.log(error);
-      } finally {
-        this.isPostLoading = false;
-      }
     },
 
     changePage(page) {
