@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h1>Добро пожаловать!</h1>
+    <h1 class="title">Добро пожаловать!</h1>
   </div>
 </template>
 
@@ -8,4 +8,11 @@
 export default {};
 </script>
 
-<style lang="scss" scoped></style>
+<style scoped>
+.title {
+  text-align: center;
+  color: white;
+  font-size: 50px;
+  padding: 40px;
+}
+</style>

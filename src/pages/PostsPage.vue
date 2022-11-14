@@ -103,7 +103,12 @@ export default {
 
   watch: {
     currentPage() {
-      this.getPosts();
+      this.isPostLoading = true;
+      getPosts(this.currentPage, this.limit).then((data) => {
+        this.totalPage = data.totalPage;
+        this.posts = data.data;
+        this.isPostLoading = false;
+      });
     },
   },
 

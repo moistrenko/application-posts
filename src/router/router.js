@@ -31,6 +31,10 @@ const routes = [
     path: '/store',
     component: StorePage,
   },
+  {
+    path: '/:catchAll(.*)',
+    redirect: '/',
+  },
 ];
 
 const router = createRouter({

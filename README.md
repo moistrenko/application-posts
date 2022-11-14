@@ -1,5 +1,12 @@
 # application-posts
 
+## Используемые технологии
+"node": "v16.14.2"
+"vue": "3.2.13",
+"vue-router": "4.0.3",
+"vuex": "4.0.0"
+"axios": "1.1.3",
+
 ## Project setup
 ```
 npm install
@@ -14,11 +21,3 @@ npm run serve
 ```
 npm run build
 ```
-
-### Lints and fixes files
-```
-npm run lint
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
